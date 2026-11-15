@@ -1,0 +1,55 @@
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "MskReadOnly",
+      "Effect": "Allow",
+      "Action": [
+        "kafka:ListClustersV2",
+        "kafka:DescribeClusterV2",
+        "kafka:ListNodes",
+        "kafka:GetBootstrapBrokers",
+        "kafka:ListClusterOperationsV2",
+        "kafka:ListTopics",
+        "kafka:DescribeTopic",
+        "kafka:DescribeTopicPartitions"
+      ],
+      "Resource": "*"
+    },
+    {
+      "Sid": "MskTopicDataPlaneRead",
+      "Effect": "Allow",
+      "Action": [
+        "kafka-cluster:Connect",
+        "kafka-cluster:DescribeCluster",
+        "kafka-cluster:DescribeTopic",
+        "kafka-cluster:DescribeTopicDynamicConfiguration"
+      ],
+      "Resource": "*"
+    },
+    {
+      "Sid": "GlueSchemaRegistryReadOnly",
+      "Effect": "Allow",
+      "Action": [
+        "glue:ListRegistries",
+        "glue:GetRegistry",
+        "glue:ListSchemas",
+        "glue:GetSchema",
+        "glue:ListSchemaVersions",
+        "glue:GetSchemaVersion",
+        "glue:GetSchemaVersionsDiff"
+      ],
+      "Resource": "*"
+    },
+    {
+      "Sid": "CloudWatchMskMetricsReadOnly",
+      "Effect": "Allow",
+      "Action": [
+        "cloudwatch:ListMetrics",
+        "cloudwatch:GetMetricStatistics",
+        "cloudwatch:GetMetricData"
+      ],
+      "Resource": "*"
+    }
+  ]
+}

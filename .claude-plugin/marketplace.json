@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-marketplace.json",
+  "name": "fulcrum-lite-marketplace",
+  "description": "Fulcrum Lite: read-only Amazon MSK (Kafka) and AWS Glue Schema Registry insights through the AWS CLI.",
+  "owner": {
+    "name": "rmavuluri"
+  },
+  "plugins": [
+    {
+      "name": "fulcrum-lite",
+      "source": "./",
+      "description": "Read-only MSK clusters, topics, replication health, CloudWatch consumer lag and Glue schemas through the AWS CLI.",
+      "category": "cloud",
+      "tags": ["kafka", "msk", "aws", "glue", "schema-registry"]
+    }
+  ]
+}
