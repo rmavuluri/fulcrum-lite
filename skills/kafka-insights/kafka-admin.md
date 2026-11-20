@@ -14,7 +14,7 @@ Below, `<bin>` means whichever form the user has, for example `~/kafka/bin/kafka
 Every command takes `--bootstrap-server <bootstrap>` and, for an authenticated cluster,
 `--command-config <client-config>`. Get `<bootstrap>`
 from `aws kafka get-bootstrap-brokers` (see aws-commands.md) and ask the user for the path of
-their client properties file. **Never print that file**: it can hold a password.
+their client properties file. **Never print or read that file**: pass its path only.
 
 ## Check Tier 2
 
@@ -52,10 +52,12 @@ Give the user these steps when Tier 2 isn't available. Don't run them yourself.
    sasl.client.callback.handler.class=software.amazon.msk.auth.iam.IAMClientCallbackHandler
    ```
 
-   Drop `awsProfileName="<profile>"` to use the default credential chain. For TLS only, use
-   `security.protocol=SSL`. For SASL/SCRAM, use `security.protocol=SASL_SSL`,
-   `sasl.mechanism=SCRAM-SHA-512` and the user's own `sasl.jaas.config` with their username and
-   password (the user writes this file; never ask them to paste the password into the chat).
+   Drop `awsProfileName="<profile>"` to use the default credential chain. For unauthenticated
+   access over TLS, use `security.protocol=SSL` alone.
+
+   Tier 2 supports IAM and unauthenticated access only. If the cluster uses SASL/SCRAM or mutual
+   TLS, which need a password or key from the user's machine, say Tier 2 isn't supported for it
+   and answer with Tier 1. Don't ask for, look for or read passwords, keystores or secrets.
 5. Run from a machine that can reach the brokers: an EC2 instance or container in the cluster's
    VPC, a peered network or VPN, or the public bootstrap string if public access is enabled.
 6. Attach the `kafka-cluster:*` read actions from `iam/fulcrum-lite-readonly-policy.json` to the

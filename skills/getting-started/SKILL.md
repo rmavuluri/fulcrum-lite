@@ -93,7 +93,7 @@ right now. Common results:
 | No registries / no connectors | Fine if they don't use Glue or MSK Connect |
 | Kafka tools not found, or no Java | Optional. Give the setup steps from "Setup (for the user to run)" in `../kafka-insights/kafka-admin.md` |
 | Broker check hangs or times out | This machine can't reach the brokers: run from inside the VPC, over VPN, or use the public bootstrap string if public access is on |
-| Broker check fails with an authentication error | IAM: the `kafka-cluster:Connect` permission or the `aws-msk-iam-auth` jar is missing. SCRAM or TLS: the client properties file is wrong |
+| Broker check fails with an authentication error | IAM: the `kafka-cluster:Connect` permission or the `aws-msk-iam-auth` jar is missing. SASL/SCRAM or mutual TLS: not supported in Tier 2, use Tier 1 |
 | Connect REST times out or is refused | The worker isn't reachable from this machine, or the URL or port is wrong |
 
 Finish with two or three example questions that will work for them right now, using their real

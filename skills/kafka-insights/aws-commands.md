@@ -38,7 +38,8 @@ aws kafka get-bootstrap-brokers --cluster-arn <cluster-arn>
 `get-bootstrap-brokers` returns one string per auth method: `BootstrapBrokerStringSaslIam`
 (port 9098), `BootstrapBrokerStringSaslScram` (9096), `BootstrapBrokerStringTls` (9094),
 `BootstrapBrokerString` (plaintext, 9092), and `...Public...` variants (91xx) if public access is
-on. Tier 2 needs one of these.
+on. Tier 2 uses the IAM string, or the TLS or plaintext string for unauthenticated access. SCRAM
+and mutual TLS aren't supported in Tier 2.
 
 ### Broker configuration (the cluster's MSK configuration)
 

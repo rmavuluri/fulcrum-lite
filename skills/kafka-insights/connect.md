@@ -75,8 +75,9 @@ curl -sS --max-time 15 <connect-url>/connector-plugins
 - Avoid `?expand=info`, `/config` and `/tasks`: they return full configuration, which often
   contains secrets. If the user asks for configuration, fetch `/connectors/<name>/config` once and
   mask secret values before showing anything.
-- If the API needs authentication, ask the user to put the credentials in `~/.netrc` and add
-  `--netrc` to the command. Never put a password in the command line.
+- Only Connect REST APIs that need no login are supported. If a request returns `401` or `403`,
+  say the API needs authentication, which this plugin doesn't handle, and stop. Don't look for
+  or ask for a password or token, and don't read credential files.
 - If `curl` times out or the connection is refused, the worker isn't reachable from this machine.
   Say so and stop.
 

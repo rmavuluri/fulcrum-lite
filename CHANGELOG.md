@@ -7,6 +7,16 @@ match the newest entry.
 
 ## [Unreleased]
 
+## [0.2.1] - 2026-11-20
+
+### Changed
+
+- The plugin no longer uses credentials stored on your machine. Tier 2 supports IAM and
+  unauthenticated access only: SASL/SCRAM and mutual TLS clusters use Tier 1. Self-managed Kafka
+  Connect REST APIs are supported only when they need no login; `~/.netrc` is no longer used.
+- 0.2.0 was held by the plugin directory for these credential reads and never went live, so 0.2.1
+  is the first public release of the 0.2 features.
+
 ## [0.2.0] - 2026-11-20
 
 ### Added
@@ -57,6 +67,7 @@ match the newest entry.
   registries, schemas, versions and diffs.
 - Read-only IAM policy in `iam/`.
 
-[Unreleased]: https://github.com/rmavuluri/fulcrum-lite/compare/v0.2.0...HEAD
+[Unreleased]: https://github.com/rmavuluri/fulcrum-lite/compare/v0.2.1...HEAD
+[0.2.1]: https://github.com/rmavuluri/fulcrum-lite/compare/v0.2.0...v0.2.1
 [0.2.0]: https://github.com/rmavuluri/fulcrum-lite/compare/v0.1.0...v0.2.0
 [0.1.0]: https://github.com/rmavuluri/fulcrum-lite/releases/tag/v0.1.0

@@ -86,24 +86,18 @@ and the brokers are reachable; if not, it answers with Tier 1 and tells you what
    ```
    (Leave out `awsProfileName="<profile>"` to use your default credentials.)
 
-   SASL/SCRAM:
-   ```
-   security.protocol=SASL_SSL
-   sasl.mechanism=SCRAM-SHA-512
-   sasl.jaas.config=org.apache.kafka.common.security.scram.ScramLoginModule required username="<user>" password="<password>";
-   ```
-
-   TLS only:
+   Unauthenticated access over TLS:
    ```
    security.protocol=SSL
    ```
 
-   Keep this file private (`chmod 600`). Claude never prints it, and you never need to paste a
-   password into the chat.
+   Tier 2 supports IAM and unauthenticated access only. SASL/SCRAM and mutual TLS need a password
+   or key stored on your machine, which this plugin doesn't use. On those clusters, Tier 1 still
+   answers most questions.
 5. Run Claude Code where it can reach the brokers: an EC2 instance (for example over SSM Session
    Manager) or a container in the cluster's VPC, a peered network or VPN, or your laptop if public access is on.
    The broker security group must allow your machine on the port for your auth method (IAM 9098,
-   SCRAM 9096, TLS 9094; public access 9198, 9196, 9194).
+   TLS 9094, plaintext 9092; public access: IAM 9198, TLS 9194).
 6. Tell Claude where the tools and the properties file are, for example *"Kafka tools are in
    ~/kafka/bin and my client config is ~/kafka-client.properties"*. Claude gets the bootstrap
    servers from AWS.
@@ -113,8 +107,8 @@ and the brokers are reachable; if not, it answers with Tier 1 and tells you what
 - **MSK Connect:** nothing extra; Tier 1 permissions cover it. For error details, enable worker log
   delivery to CloudWatch Logs on the connector.
 - **Self-managed Kafka Connect:** give Claude the REST URL, for example
-  `http://connect.internal:8083`, reachable from where Claude Code runs. If the REST API needs a
-  password, put it in `~/.netrc` (Claude adds `--netrc`); never paste it in the chat.
+  `http://connect.internal:8083`, reachable from where Claude Code runs. Only REST APIs that need
+  no login are supported.
 
 ## What you can ask
 
@@ -237,7 +231,7 @@ in with only the plugin's read-only policy. They're shortened; names are the tes
 | No per-topic throughput | Enable `PER_TOPIC_PER_BROKER` enhanced monitoring on the cluster. |
 | Kafka tool hangs, then times out | This machine can't reach the brokers. Check you're inside the VPC or on VPN, the security group allows your IP on the right port, and you're using the bootstrap string for your auth method. |
 | `SaslAuthenticationException` / authentication failed (IAM) | The `aws-msk-iam-auth` jar isn't in `libs/`, or your IAM identity lacks `kafka-cluster:Connect`. |
-| Authentication failed (SCRAM) | Wrong username or password in the properties file, or the secret isn't associated with the cluster. |
+| Cluster uses SASL/SCRAM or mutual TLS | Tier 2 doesn't support these, because they need a password or key from your machine. Tier 1 still works. |
 | `TopicAuthorizationException` / `GroupAuthorizationException` | IAM identity lacks `kafka-cluster:DescribeTopic` or `kafka-cluster:DescribeGroup`. |
 | Kafka Connect REST: connection refused / timeout | Wrong URL or port, or the worker isn't reachable from this machine. |
 
