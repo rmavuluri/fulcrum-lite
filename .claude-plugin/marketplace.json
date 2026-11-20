@@ -9,9 +9,17 @@
     {
       "name": "fulcrum-lite",
       "source": "./",
-      "description": "Read-only MSK clusters, topics, replication health, CloudWatch consumer lag and Glue schemas through the AWS CLI.",
+      "description": "Read-only MSK clusters, brokers, topics, consumer groups and lag, MSK Connect and Kafka Connect connectors, and Glue schemas through the AWS CLI and optional Kafka admin tools.",
       "category": "cloud",
-      "tags": ["kafka", "msk", "aws", "glue", "schema-registry"]
+      "tags": [
+        "kafka",
+        "msk",
+        "aws",
+        "glue",
+        "schema-registry",
+        "kafka-connect",
+        "consumer-lag"
+      ]
     }
   ]
 }

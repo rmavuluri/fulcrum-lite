@@ -10,6 +10,8 @@
         "kafka:ListNodes",
         "kafka:GetBootstrapBrokers",
         "kafka:ListClusterOperationsV2",
+        "kafka:DescribeConfiguration",
+        "kafka:DescribeConfigurationRevision",
         "kafka:ListTopics",
         "kafka:DescribeTopic",
         "kafka:DescribeTopicPartitions"
@@ -17,13 +19,36 @@
       "Resource": "*"
     },
     {
-      "Sid": "MskTopicDataPlaneRead",
+      "Sid": "MskDataPlaneReadForIamAuth",
       "Effect": "Allow",
       "Action": [
         "kafka-cluster:Connect",
         "kafka-cluster:DescribeCluster",
+        "kafka-cluster:DescribeClusterDynamicConfiguration",
         "kafka-cluster:DescribeTopic",
-        "kafka-cluster:DescribeTopicDynamicConfiguration"
+        "kafka-cluster:DescribeTopicDynamicConfiguration",
+        "kafka-cluster:DescribeGroup"
+      ],
+      "Resource": "*"
+    },
+    {
+      "Sid": "MskConnectReadOnly",
+      "Effect": "Allow",
+      "Action": [
+        "kafkaconnect:ListConnectors",
+        "kafkaconnect:DescribeConnector",
+        "kafkaconnect:ListCustomPlugins",
+        "kafkaconnect:DescribeCustomPlugin",
+        "kafkaconnect:ListWorkerConfigurations",
+        "kafkaconnect:DescribeWorkerConfiguration"
+      ],
+      "Resource": "*"
+    },
+    {
+      "Sid": "MskConnectErrorLogsRead",
+      "Effect": "Allow",
+      "Action": [
+        "logs:FilterLogEvents"
       ],
       "Resource": "*"
     },
@@ -37,12 +62,16 @@
         "glue:GetSchema",
         "glue:ListSchemaVersions",
         "glue:GetSchemaVersion",
-        "glue:GetSchemaVersionsDiff"
+        "glue:GetSchemaVersionsDiff",
+        "glue:GetSchemaByDefinition",
+        "glue:CheckSchemaVersionValidity",
+        "glue:QuerySchemaVersionMetadata",
+        "glue:GetTags"
       ],
       "Resource": "*"
     },
     {
-      "Sid": "CloudWatchMskMetricsReadOnly",
+      "Sid": "CloudWatchMetricsReadOnly",
       "Effect": "Allow",
       "Action": [
         "cloudwatch:ListMetrics",

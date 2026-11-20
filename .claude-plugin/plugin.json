@@ -2,8 +2,8 @@
   "$schema": "https://json.schemastore.org/claude-code-plugin-manifest.json",
   "name": "fulcrum-lite",
   "displayName": "Fulcrum Lite",
-  "version": "0.1.0",
-  "description": "Answer questions about Amazon MSK (Kafka) clusters and AWS Glue Schema Registry with read-only AWS CLI commands: clusters, brokers, topics and partitions, replication health, consumer lag from CloudWatch, schemas and schema diffs. No server, no installs.",
+  "version": "0.2.0",
+  "description": "Answer questions about Amazon MSK (Kafka) clusters, brokers, topics, consumer groups, connectors (MSK Connect and Kafka Connect) and AWS Glue Schema Registry with read-only AWS CLI commands and, optionally, read-only Kafka admin tools: health, replication, consumer lag and members, broker load and disk, connector failures, schema diffs and compatibility checks. No server, no installs.",
   "author": {
     "name": "rmavuluri"
   },
@@ -17,6 +17,9 @@
     "glue",
     "schema-registry",
     "consumer-lag",
-    "aws-cli"
+    "aws-cli",
+    "kafka-connect",
+    "msk-connect",
+    "consumer-groups"
   ]
 }
